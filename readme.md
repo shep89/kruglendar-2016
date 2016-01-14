@@ -1,4 +1,10 @@
 Kruglendar 2016 — the diary poster
+
+This is My cusomisation of illus0r/kruglendar-2016. Changes:
+* Size is ready for A0
+* Adjustments of font size for A0
+* Added Russian translation. To see russian month names, open HTML page with lang=ru: "~/src/index.html?lang=ru"
+
 ===
 
 Hi there! *Kruglendar* is a minimalistic round calendar with a plenty of white space to make notes. I use it for sketching past events and planning.
