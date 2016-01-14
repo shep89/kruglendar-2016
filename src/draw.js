@@ -1,6 +1,7 @@
 //Changable variables
 //relative to size
-var svg_size = [2104.72, 2979.92],
+//var svg_size = [2104.72, 2979.92],
+var svg_size = [4209.44, 5959.84],
     center = [0.5, 0.4698];
 //abs
 //var gap = 0.1, // gap for new year
@@ -59,7 +60,7 @@ var pi = Math.PI;
 r *= (1-gap) // gap cause inner radius to be smaller
 //var r2 = 0.18*r;// drawing point distance
 //var r2 = 0.28*r;// drawing point distance
-var r2 = 0.3*r;// drawing point distance
+var r2 = 0.5*r;// drawing point distance
 var hypotrochoidAngleSpan = 2*pi*(1-gap);
 
 
@@ -70,6 +71,28 @@ var hypotrochoidAngleSpan = 2*pi*(1-gap);
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+var GET = {};
+location.search.substr(1).split("&").forEach(function(item) {
+    var s = item.split("="),
+        k = s[0],
+        v = s[1] && decodeURIComponent(s[1]);
+    (k in GET) ? GET[k].push(v) : GET[k] = [v]
+})
+// Dictionaries
+function monthReplace(monthName, targetLang)
+{
+	var dict;
+	switch (targetLang)
+	{
+		case "ru":
+			dict = {"January": "Январь", "February": "Февраль", "March": "Март", "April": "Апрель", "May": "Май", "June": "Июнь", "July": "Июл ь",
+					"August": "Август", "September": "Сентябрь", "October": "Октбярь", "November": "Ноябрь", "December": "Декабрь" };
+			return dict[monthName];
+			break;
+		default:
+			return monthName;
+	}
+}
 
 // for hypotrochoid finds couple [theta, ro] for given psi (angle to rolling circle)
 // takes angle psi in radians
@@ -419,7 +442,7 @@ function draw(){
           return "skewY("+Math.atan(dy/dx)*180/pi*skew_factor+")"; 
         },
         style: function(d){
-          var fontSizeKoef = 1.0;
+          var fontSizeKoef = 1.5;
           var fontSize = fontSizeKoef * d.scale * (R-r2) * hypotrochoidAngleSpan / datesStringLength;
           var fontFamilyCurDay = (d.weekend)?fontFamilyWeekend:fontFamily;
           var fontWeightCurDay = (d.weekend)?fontWeightWeekend:fontWeight;
@@ -496,7 +519,7 @@ function draw(){
       startOffset: "25%",
     })
     .text(function(d){
-      return d.monthName;
+      return monthReplace(d.monthName, GET.lang[0]);
     })
     .attr({
       "class": function(d){ if(d.weekend) { return "weekend"; } else{ return "weekday"; } },
@@ -514,21 +537,21 @@ function draw(){
       + ")",
      style: "font-size:"+decoration_font_size+"px;text-align:center;text-anchor:middle;font-family:Roboto Condensed;letter-spacing:0.01em;",
     });
-  description.append("tspan")
+  /*description.append("tspan")
     .attr({ 
       "xml:space": "preserve",
     })
-    .text("Kruglendar — the poster diary. Download from ");
-  description.append("tspan")
+    .text("Kruglendar — the poster diary. Download from ");*/
+  /*description.append("tspan")
     .attr({ 
-      style: "font-weight: bold; /*text-decoration: underline;*/ fill: #0195d5;",
+      style: "font-weight: bold;  fill: #0195d5;",
     })
-    .text("www.kruglendar.ru");
-  description.append("tspan")
+    .text("www.kruglendar.ru");*/
+  /*description.append("tspan")
     .attr({ 
       "xml:space": "preserve",
     })
-    .text(" for free");
+    .text(" for free");*/
     //.text(" for free · ");
   //description.append("tspan")
     //.attr({
@@ -561,7 +584,7 @@ function draw(){
     .attr({
       x: "0.017473536",
       y: "0.48287916",
-      style: "font-size:127px;text-anchor:middle;font-family:Bebas Neue; font-weight: bold;",
+      style: "font-size:250px;text-anchor:middle;font-family:Bebas Neue; font-weight: bold;",
       dx: "-1.0802984 5.6619849 -2.1156566 4.49368",
     })
   .text("2016");
@@ -610,8 +633,8 @@ function draw(){
       transform: "translate("
       + (svg_size[0]*center[0] + R*0.004204)
       + "," 
-      + (svg_size[1]*center[1] - R*0.959111)
-      + ") scale(3)",
+      + (svg_size[1]*center[1] - R*0.959111 - 40)
+      + ") scale(12)",
     });
     tree.append("path")
       .attr({
