@@ -88,10 +88,10 @@ function monthReplace(monthName, targetLang)
 			dict = {"January": "Январь", "February": "Февраль", "March": "Март", "April": "Апрель", "May": "Май", "June": "Июнь", "July": "Июл ь",
 					"August": "Август", "September": "Сентябрь", "October": "Октбярь", "November": "Ноябрь", "December": "Декабрь" };
 			return dict[monthName];
-			break;
 		default:
 			return monthName;
 	}
+	
 }
 
 // for hypotrochoid finds couple [theta, ro] for given psi (angle to rolling circle)
@@ -519,7 +519,7 @@ function draw(){
       startOffset: "25%",
     })
     .text(function(d){
-      return monthReplace(d.monthName, GET.lang[0]);
+      return monthReplace(d.monthName, ((typeof GET !=="undefined") ? GET.lang[0] : "en" ));
     })
     .attr({
       "class": function(d){ if(d.weekend) { return "weekend"; } else{ return "weekday"; } },
